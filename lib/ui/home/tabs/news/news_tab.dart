@@ -10,6 +10,7 @@ import 'package:news_c20_dokki/models/sources_response.dart';
 import 'package:news_c20_dokki/ui/home/home_view_model.dart';
 import 'package:news_c20_dokki/ui/home/tabs/news/news_view_mdoel.dart';
 import 'package:news_c20_dokki/ui/home/widgets/article_card.dart';
+import 'package:news_c20_dokki/ui/home/widgets/article_preview_sheet.dart';
 import 'package:provider/provider.dart';
 
 class NewsTab extends StatefulWidget {
@@ -69,7 +70,18 @@ class _NewsTabState extends BaseState<NewsTab , NewsViewModel> {
                           padding: EdgeInsets.all(16),
                           separatorBuilder: (_, _)=>16.verticalSpace,
                           itemCount: viewModel.articles.length,
-                          itemBuilder: (context, index) => ArticleCard(article: viewModel.articles[index]),
+                          itemBuilder: (context, index) {
+                            final article = viewModel.articles[index];
+                            return ArticleCard(
+                              article: article,
+                              onTap: () => showModalBottomSheet<void>(
+                                context: context,
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                builder: (_) => ArticlePreviewSheet(article: article),
+                              ),
+                            );
+                          },
                         );
                       }
                     }),

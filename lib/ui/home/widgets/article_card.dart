@@ -8,13 +8,17 @@ import 'package:provider/provider.dart';
 
 class ArticleCard extends StatelessWidget {
   final Article article;
+  final VoidCallback? onTap;
 
-  const ArticleCard({required this.article, super.key});
+  const ArticleCard({required this.article, this.onTap, super.key});
 
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<AppConfigProvider>(context);
-    return Container(
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(24),
+      child: Container(
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
@@ -50,6 +54,7 @@ class ArticleCard extends StatelessWidget {
             ],
           ),
         ],
+      ),
       ),
     );
   }

@@ -23,6 +23,7 @@ class NewsViewModel extends BaseViewModel {
   int selectedIndex = 0;
 
   void changeSelectedIndex(int index){
+    if (index < 0 || index >= sources.length) return;
     selectedIndex = index;
     getArticles();
     notifyListeners();
@@ -30,10 +31,16 @@ class NewsViewModel extends BaseViewModel {
 
   Future<void> getSources() async {
     sourcesLoading = true;
+    sourcesError = null;
+    articlesError = null;
     notifyListeners();
     try {
       sources = (await apiManger.getSources(category.categoryId)).sources??[];
-      getArticles();
+      if (sources.isEmpty) {
+        articles = [];
+      } else {
+        await getArticles();
+      }
     } catch (e) {
       sourcesError = e.toString();
     }
@@ -42,7 +49,14 @@ class NewsViewModel extends BaseViewModel {
   }
 
   Future<void> getArticles() async {
+    if (selectedIndex < 0 || selectedIndex >= sources.length) {
+      articles = [];
+      articlesLoading = false;
+      notifyListeners();
+      return;
+    }
     articlesLoading = true;
+    articlesError = null;
     notifyListeners();
     try {
       articles = (await apiManger.getArticles(sources[selectedIndex].id??"")).articles??[];

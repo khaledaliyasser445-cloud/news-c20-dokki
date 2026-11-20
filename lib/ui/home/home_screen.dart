@@ -4,11 +4,11 @@ import 'package:news_c20_dokki/core/providers/app_config_provider.dart';
 import 'package:news_c20_dokki/core/utils/context_extention.dart';
 import 'package:news_c20_dokki/core/utils/numbers_extension.dart';
 import 'package:news_c20_dokki/core/utils/widget_extension.dart';
-import 'package:news_c20_dokki/models/news_category.dart';
 import 'package:news_c20_dokki/ui/home/home_navigator.dart';
 import 'package:news_c20_dokki/ui/home/home_view_model.dart';
 import 'package:news_c20_dokki/ui/home/tabs/home_tab.dart';
 import 'package:news_c20_dokki/ui/home/tabs/news/news_tab.dart';
+import 'package:news_c20_dokki/ui/home/search/search_screen.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -35,7 +35,17 @@ class _HomeScreenState extends BaseState<HomeScreen , HomeViewModel> implements 
               viewModel.selectedCategory == null ? "Home" : viewModel.selectedCategory!.categoryName,
             ),
             centerTitle: true,
-            actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
+            actions: [
+              IconButton(
+                tooltip: 'Search news',
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const SearchScreen(),
+                  ),
+                ),
+                icon: const Icon(Icons.search),
+              ),
+            ],
           ),
           drawer: _drawer(provider),
           body: viewModel.selectedCategory == null
