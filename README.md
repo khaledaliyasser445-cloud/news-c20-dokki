@@ -1,17 +1,32 @@
-# news_c20_dokki
+# News App
 
-A new Flutter project.
+A Flutter news app that lets users browse news by category and source, search for articles, and open full stories.
 
-## Getting Started
+## Recent Updates
 
-This project is a starting point for a Flutter application.
+- Added a search screen with automatic search as the user types.
+- Connected article search to the NewsAPI `/v2/everything` endpoint.
+- Added loading, empty, and error states for search results.
+- Added article previews and an option to open the full article in an in-app web view.
+- Updated the Android and iOS launch screens with light and dark branding.
+- Configured NewsAPI authentication through the `X-Api-Key` header.
 
-A few resources to get you started if this is your first Flutter project:
+## Demo
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+[Watch or download the app demo](assets/videos/news-app-demo.mp4).
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Run the App
+
+Provide a NewsAPI key at runtime; do not commit the key to the repository.
+
+```bash
+flutter pub get
+flutter run --dart-define=NEWS_API_KEY=YOUR_NEWS_API_KEY
+```
+
+## Built With
+
+- Flutter and Dart
+- NewsAPI
+- Dio for HTTP requests
+- Provider for state management
